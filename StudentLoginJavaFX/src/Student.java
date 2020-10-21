@@ -33,7 +33,6 @@ public class Student {
 	
 	// check password matches email. returns false if email not found.
 	public static boolean checkPasswordMatches(String email, String password) {
-		System.out.println("check match: " + email + " " + password);
 		if (emailsPasswords.containsKey(email)) {
 			if (emailsPasswords.get(email).equals(password)) {
 				return true;

@@ -1,0 +1,31 @@
+
+#name{
+	-fx-font-family: "Times New Roman";
+	-fx-font-size: 24px;
+	-fx-font-weight: bolder;
+	-fx-fill: WHITE;
+}
+
+#button{
+	-fx-font-weight: bold;
+	-fx-background-color: blue;
+	-fx-text-fill: white;
+}
+
+#id{
+	-fx-font-family: "Times New Roman";
+	-fx-font-size: 24px;
+	-fx-font-weight: bolder;
+	-fx-fill: WHITE;
+}
+
+#email{
+	-fx-font-family: "Times New Roman";
+	-fx-font-size: 24px;
+	-fx-font-weight: bolder;
+	-fx-fill: WHITE;
+}
+
+#vbox{
+	-fx-background-image: url("ls_small.jpg")
+}

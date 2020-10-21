@@ -10,6 +10,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -51,7 +53,6 @@ public class UserInterface extends Application {
 		
 		ImageView logoView = new ImageView(new Image("vuw-logo.png"));
 		ImageView logoViewLogin = new ImageView(new Image("vuw-logo.png"));
-//		ImageView logoViewWelcome = new ImageView(new Image("vuw-logo.png"));
 		logoView.setPreserveRatio(true);
 		logoViewLogin.setPreserveRatio(true);
 		logoView.setFitWidth(300);
@@ -80,10 +81,9 @@ public class UserInterface extends Application {
 		welcome = new VBox();
 		loginBtn = new Button("Login");
 		submitBtn = new Button("Sign Up");
-//		submitBtn.setText("Sign Up");
 		logoutBtn = new Button("Logout");
-		signUpBtn = new Button("New Student");
-		existingUserBtn = new Button("Existing Students");
+		signUpBtn = new Button("Return to Sign Up");
+		existingUserBtn = new Button("Student Login");
 		
 		loginBtn.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -151,16 +151,28 @@ public class UserInterface extends Application {
 
 			@Override
 			public void handle(ActionEvent arg0) {
+				// fetch input text and check for empty inputs and present error messages
 				String name = nameText.getText();
+				if (name.equals("")) {
+					errorMessage.setText("Must provide name.");
+					return;
+				}
 				String email = emailText.getText();
+				if (email.equals("")) {
+					errorMessage.setText("Must provide email address.");
+					return;
+				}
 				String password = passwordField.getText();
+				if (password.equals("")) {
+					errorMessage.setText("Must enter password.");
+					return;
+				}
 				
 				// need to check for uniqueness of email address
 				if (Student.emailExists(email)) {
 					
 					// print error message
 					errorMessage.setText("Email already exists in system.");
-					System.out.println("Email already exists");
 					
 					return;
 				}
@@ -179,18 +191,6 @@ public class UserInterface extends Application {
 			}
 			
 		});
-		
-//		login.getChildren().add();
-		// -------------------------------------- //
-		
-//		Text text = new Text ("Student Log");
-//		Text text1 = new Text("Enter Username");
-//		Text text2 = new Text("Enter Password");
-//		TextField input1 = new TextField();
-//		TextField input2 = new TextField();
-//		Button addBtn = new Button("LOG IN");
-//		Button clearBtn = new Button("Clear");
-//		Text result = new Text();
 		
 		// create login pane
 		login = new GridPane();
@@ -215,19 +215,10 @@ public class UserInterface extends Application {
 		login.add(loginEmail, 2, 1);
 		login.add(loginPasswordLabel, 1, 2);
 		login.add(loginPassword, 2, 2);
-//		login.add(passwordLabel, 1, 3);
-//		login.add(passwordField, 2, 3);
 		login.add(loginBtn, 2, 3);
 		login.add(loginErrorMessage, 2, 4);
 		login.add(logoViewLogin, 0, 0);
 		login.add(signUpBtn, 1, 0);
-		
-////		
-
-		
-//		loginTest = new VBox();
-//		loginTest.getChildren().add(signUpBtn);
-//		loginTest.getChildren().add(nameText);
 		
 		// create sign up pane
 		GridPane signUp = new GridPane();
@@ -250,32 +241,15 @@ public class UserInterface extends Application {
 		signUp.add(errorMessage, 2, 5);
 		signUp.add(logoView, 0, 0);
 		signUp.add(existingUserBtn, 1, 0);
-		
-		// -------------------------------------- //
-		
-		
-//		signUp = new VBox();
-//		signUp.getChildren().add(nameLabel);
-//		signUp.getChildren().add(nameText);
-//		signUp.getChildren().add(emailLabel);
-//		signUp.getChildren().add(emailText);
-//		signUp.getChildren().add(passwordLabel);
-//		signUp.getChildren().add(passwordField);
-//		signUp.getChildren().add(submitBtn);
-//		signUp.getChildren().add(errorMessage);
-//		signUp.getChildren().add(logoView);
+
 		
 		loginScene = new Scene(login, 600, 350);
-//		loginScene = new Scene(login, 600, 350);
 		signUpScene = new Scene(signUp, 600, 350);
-		
-//		Scene login = new Scene(login, 500, 350);
 		
 		primaryStage.setTitle("User Sign Up");
 		primaryStage.setScene(signUpScene);
 		primaryStage.show();
 		
-		// pass the stage around the scenes. call stage.setScene
 	}
 	
 	private void clearInputs() {
@@ -297,10 +271,16 @@ public class UserInterface extends Application {
 		// add to the relevant texts,
 		displayName = new Text("Hi, " + name + "!");
 		displayId = new Text("ID: " + Integer.toString(id));
-		displayEmail = new Text(email);
+		displayEmail = new Text("Email address: " + email);
+		displayName.setId("name");
+		displayEmail.setId("email");
+		displayId.setId("id");
 		
 		// clear welcome pane
 		welcome = new VBox();
+		welcome.setId("vbox");
+		welcome.setAlignment(Pos.CENTER_LEFT);
+		logoutBtn.setId("button");
 		
 		// add texts to the welcome pane
 		welcome.getChildren().add(displayName);
@@ -310,6 +290,7 @@ public class UserInterface extends Application {
 		
 		// add to welcome scene and return scene
 		welcomeScene = new Scene(welcome, 600, 350);
+		welcomeScene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 		return welcomeScene;
 	}
 
