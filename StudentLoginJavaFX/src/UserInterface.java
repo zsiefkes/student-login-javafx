@@ -10,15 +10,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class UserInterface extends Application {
-
+	
 	// JavaFX stuff
 	TextField loginEmail;
 	Label loginEmailLabel;
@@ -170,10 +168,8 @@ public class UserInterface extends Application {
 				
 				// need to check for uniqueness of email address
 				if (Student.emailExists(email)) {
-					
 					// print error message
 					errorMessage.setText("Email already exists in system.");
-					
 					return;
 				}
 				
@@ -185,7 +181,7 @@ public class UserInterface extends Application {
 				// create the scene in here, then run stage.setscene
 				welcomeScene = createWelcomeScreen(student);
 				
-				
+				// switch to welcome scene
 				primaryStage.setScene(welcomeScene);
 				primaryStage.setTitle("Welcome");
 			}
@@ -196,20 +192,10 @@ public class UserInterface extends Application {
 		login = new GridPane();
 		login.setMinSize(400, 200);
 		login.setPadding(new Insets(10, 10, 10, 10));
-		// padding is the space between margin and grid
 		
-		login.setVgap(5); // Gap between object like button and textfield
+		login.setVgap(5); 
 		login.setHgap(5);
 		login.setAlignment(Pos.TOP_LEFT); 
-//		
-//		//login.add(text, 0, 0);
-		/* 		loginEmail = new TextField();
-		loginEmailLabel = new Label("Email address:");
-		loginEmailLabel.setLabelFor(loginEmail);
-		loginPassword = new PasswordField();
-		loginPasswordLabel = new Label("Password:");
-		loginPasswordLabel.setLabelFor(loginPassword);
-		*/
 		
 		login.add(loginEmailLabel, 1, 1);
 		login.add(loginEmail, 2, 1);
@@ -224,11 +210,10 @@ public class UserInterface extends Application {
 		GridPane signUp = new GridPane();
 		signUp.setMinSize(400, 200);
 		signUp.setPadding(new Insets(10, 10, 10, 10));
-		// padding is the space between margin and grid
 		
-		signUp.setVgap(5); // Gap between object like button and textfield
+		signUp.setVgap(5);
 		signUp.setHgap(5);
-		signUp.setAlignment(Pos.TOP_LEFT); // make everything in center
+		signUp.setAlignment(Pos.TOP_LEFT);
 		
 		//signUp.add(text, 0, 0);
 		signUp.add(nameLabel, 1, 1);
@@ -269,7 +254,7 @@ public class UserInterface extends Application {
 		int id = student.getUniqueId();
 		
 		// add to the relevant texts,
-		displayName = new Text("Hi, " + name + "!");
+		displayName = new Text("Hi, " + name + "! Welcome to the University");
 		displayId = new Text("ID: " + Integer.toString(id));
 		displayEmail = new Text("Email address: " + email);
 		displayName.setId("name");

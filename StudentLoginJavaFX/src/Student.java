@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.TreeMap;
 
 public class Student {
 	private String name;
@@ -8,9 +6,10 @@ public class Student {
 	private String password;
 	private int uniqueId;
 	
-	private static ArrayList<Student> students = new ArrayList<>();
-	private static TreeMap<String, Integer> emailsIds = new TreeMap<>();
+//	private static ArrayList<Student> students = new ArrayList<>();
+	private static HashMap<String, Integer> emailsIds = new HashMap<>();
 	private static HashMap<String, String> emailsPasswords = new HashMap<>();
+	private static HashMap<Integer, Student> idsStudents = new HashMap<>();
 	
 	public Student(String name, String email, String password) {
 		this.name = name;
@@ -19,11 +18,11 @@ public class Student {
 		
 		// set id based on number of existing students
 		this.uniqueId = emailsIds.size() + 1;
+		
+		// add student to "database"
 		emailsIds.put(email, uniqueId);
 		emailsPasswords.put(email, password);
-		
-		// add student to arraylist
-		students.add(this);
+		idsStudents.put(uniqueId, this);
 	}
 
 	// check if email exists in system
@@ -44,13 +43,7 @@ public class Student {
 	}
 	
 	public static Student getStudent(int id) {
-		for (Student s : students) {
-			if (s.getUniqueId() == id) {
-				return s;
-			}
-		}
-		// if no student found
-		return null;
+		return idsStudents.get(id);
 	}
 	
 	public static int getStudentIDFromEmail (String email) {
@@ -77,13 +70,6 @@ public class Student {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-//	public String getPassword() {
-//		return password;
-//	}
-//
-//	public void setPassword(String password) {
-//		this.password = password;
-//	}
 
 	public int getUniqueId() {
 		return uniqueId;
@@ -91,14 +77,6 @@ public class Student {
 
 	public void setUniqueId(int uniqueId) {
 		this.uniqueId = uniqueId;
-	}
-
-	public static ArrayList<Student> getStudents() {
-		return students;
-	}
-	
-	public static TreeMap<String, Integer> getEmailsIds() {
-		return emailsIds;
 	}
 
 	@Override

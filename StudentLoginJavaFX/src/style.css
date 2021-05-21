@@ -27,5 +27,7 @@
 }
 
 #vbox{
-	-fx-background-image: url("ls_small.jpg")
+	-fx-background-image: url("ls_small.jpg");
+	-fx-background-repeat: no-repeat no-repeat;
+	-fx-background-size: cover;
 }
